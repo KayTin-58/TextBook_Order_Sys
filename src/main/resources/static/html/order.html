@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href='css/main.css' media='screen' rel='stylesheet' type='text/css'/>
+    <script src="/js/vue2.js"></script>
+    <script src="/js/vue2.min.js"></script>
+    <script src="/css/vue2.min.js"></script>
+    <script src="/js/jquery-1.8.0.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+
+    <style>
+        .yj{
+            padding:2px;
+            border: 2px;
+            -moz-border-radius: 15px;
+            -webkit-border-radius: 15px;
+            border-radius:15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div  id="app">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <br/>
+            <div class="row clearfix">
+                <div class="col-md-12 column" >
+                    <div >
+                        <h1>
+                            管理订单
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" >
+                <div class="col-md-12 column"  >
+                    <div style="background-color:#5a4440" class="yj">
+                    <!--按钮区-->
+                    <table width="100%" border="0" align="center" cellpadding="3" cellspacing="5" >
+
+                        <tr >
+                            <td width=""></td>
+                            <td width="30%" align="center">
+                                <label>选择学院：</label>
+                                <select  @change="select" style="background-color:#807474" class="yj">
+                                    <option >信息工程学院</option>
+                                    <option >中医基础学院</option>
+                                    <option >药学院</option>
+                                </select>
+                            </td>
+
+                            <td width="2%" >&nbsp;</td>
+                            <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm" @click="deleteAll()">删除订单</button></td>
+                            <td width="5%"></td>
+                            <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm" @click="showAll">查看全部</button></td>
+                            <td width="5%"></td>
+                            <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm">功能待定</button></td>
+                            <td  align="center"><form class="navbar-form navbar-left" role="search">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"  placeholder="按书籍名搜索" v-model="Search"/>
+                                    </div>
+                               </form>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+
+                <br>
+                <div class="col-md-12 column">
+                    <table class="table table-hover" >
+                        <thead>
+                        <tr >
+                            <td style="background-color:#8B8878" align="center"></td>
+                            <td  style="background-color:#8B6914" align="center">编号</td>
+                            <td  style="background-color:#4169E1" align="center">学院</td>
+                            <td  style="background-color:#528B8B" align="center">数量</td>
+                            <td  style="background-color:#8B2323" align="center">负责人</td>
+                            <td  style="background-color:#A0522D" align="center">书籍名称</td>
+                            <td  style="background-color:#CDAD00" align="center">操作</td>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr  v-for="(item,index) in newList ">
+                            <td>
+                                <input type="checkbox"   v-bind:checked="item.checked" @click="selectOne(item)">
+                                </input>
+                            </td>
+                            <td align="center">{{index+1}}</td>
+                            <td align="center">{{item.faculty}}</td>
+                            <td align="center">{{item.quantity}}</td>
+                            <td align="center">{{item.responsible}}</td>
+                            <td align="center">{{item.bookname}}</td>
+                            <td align="center"><button type="button" class="btn btn-primary btn-link"  data-toggle="modal"  data-target="#myModal"
+
+                                        @click="toView(item)">查看</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--详细显示模态框-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        订阅单详情
+                    </h4>
+                </div>
+                <div class="modal-body" align="center">
+                    <table width="360" border="1" cellpadding="20" cellspacing="10">
+                        <caption><h3>{{order.faculty}}</h3></caption>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#CCFFFF">订单号码：</td>
+                            <td width="190" height="34"  align="center"  bgcolor="#CCFFFF">{{order.orderNum}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#CCCC99">书名：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#CCCC99">{{order.bookname}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#CCFF66">版次：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#CCFF66">{{order.edition}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#6666FF">ISBN：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#6666FF">{{order.isbn}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#33CC99">作者：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#33CC99">{{order.author}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#FFCCCC">版本：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#FFCCCC">{{order.version}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#00FFFF">出版社：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#00FFFF">{{order.press}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#999999">单价：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#999999">{{order.unitprice}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#333399">专业：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#333399">{{order.profession}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#666699">届：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#666699">{{order.session}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#66CC99">课程：</td>
+                            <td width="190" height="34" align="center" bgcolor="#66CC99">{{order.course}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#6699FF">申办人:</td>
+                            <td width="190" height="34"  align="center" bgcolor="#6699FF">{{order.responsible}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#99FFFF">数量：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#99FFFF">{{order.quantity}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#99FFFF">时间：</td>
+                            <td width="190" height="34" align="center" bgcolor="#99FFFF">{{order.quantity}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+</body>
+<script>
+  var vm=new Vue({
+      el:'#app',
+      data:{
+          orderLists:[],
+          Search:'',
+          order:"",
+          newList:[],
+          value:'信息工程学院',
+          idArray:[],
+          index:[]
+      },
+
+      mounted: function (){
+          this.getList();
+      },
+
+      methods:{
+           getList:function(){
+               var _this=this;
+               axios.get('/order/getAll').then(function(response){
+                    console.log(response);
+                   _this.orderLists=response.data;
+                 //  alert("成功："+_this.orderLists.length);
+               },function(errormessage){
+                   //alert("失败"+ +errormessage);
+               })
+
+           },
+//选择学院
+          select:function(ele) {
+
+              var _this=this;
+              _this.value=ele.target.value;
+             // alert(_this.value)
+          },
+
+//查看全部订单
+          showAll:function(){
+               var _this=this;
+               _this.value="";
+               //alert(_this.value);
+          },
+
+//查看
+          toView:function (item) {
+
+              this.order=item;
+          },
+//选择一个订单
+          selectOne:function(item){
+
+              this.idArray.push(item.id);
+
+              alert(item.bookname+"shanchu")
+
+              if(typeof item.checked == "undefined"){
+                  //Vue.set(product,"checked",true);给item注册添加新属性
+                  this.$set(item,"checked",true);
+              }else{
+                  item.checked = !item.checked;
+              }
+          },
+//删除订阅单
+          deleteAll:function(){
+              var _this=this;
+
+              $.ajax({
+                  url : '/order/deleteAll',
+                  type : "post",
+                  data :{ids:_this.idArray},
+                  success : function(data) {
+                      _this.orderLists.forEach(function(item,index){
+
+                          if(item.checked==true){
+
+                              alert(item.bookname)
+                              _this.orderLists.splice(index,1);//删除
+                          }
+                      })
+                  }
+              });
+
+
+
+
+          }
+
+
+
+      },
+//
+      beforeCreate:function(){
+
+      },
+
+      computed: {
+
+          newList: function () {
+              var that = this;
+              return that.orderLists.filter(function (item) {
+                  return item.bookname.toLowerCase().indexOf(that.Search.toLowerCase()) !== -1;
+              })
+          }
+          ,
+
+          newList: function () {
+              var that = this;
+              //alert(that.value+"agagg");
+              return that.orderLists.filter(function (item) {
+                  if(that.value==""){
+                      //return true;
+                      return  (item.bookname.toLowerCase().indexOf(that.Search.toLowerCase()) !== -1);
+                  }else{
+
+                      return  (item.faculty==that.value)&&
+                          (item.bookname.toLowerCase().indexOf(that.Search.toLowerCase()) !== -1);
+                  }
+
+              })
+          }
+      }
+  });
+</script>
+</html>

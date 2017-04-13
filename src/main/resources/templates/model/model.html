@@ -1,0 +1,116 @@
+<!doctype html>
+<html  xmlns:th="http://www.thymeleaf.org">
+ <head>
+  <meta charset="UTF-8"/>
+  <title>Document</title>
+  <!--导入vue包-->
+  <script src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+
+
+     <style>
+
+         #DIV2 {
+             background:url(/images/b.jpg) ;
+         }
+     </style>
+ </head>
+ <body>
+
+
+ <div class="container" id="test">
+     <div class="row clearfix">
+         <div class="col-md-12 column">
+             <div class="row clearfix">
+                 <div class="col-md-2 column">
+                 </div>
+                 <div class="col-md-10column" id="DIV2" >
+                     <select v-model="selected">
+                         <option v-for="yx in YX" :value="yx.text">
+                             {{yx.text}}
+                         </option>
+                     </select>
+                     <select>
+                         <option v-for="zy in selection" :value="zy.text" :selected="$index == 0 ? true : false">
+                             {{zy.text}}
+                         </option>
+                     </select>
+
+
+                     <ul>
+                         <li>
+                             Lorem ipsum dolor sit amet
+                         </li>
+                         <li>
+                             Consectetur adipiscing elit
+                         </li>
+                         <li>
+                             Integer molestie lorem at massa
+                         </li>
+                         <li>
+                             Facilisis in pretium nisl aliquet
+                         </li>
+                         <li>
+                             Nulla volutpat aliquam velit
+                         </li>
+                         <li>
+                             Faucibus porta lacus fringilla vel
+                         </li>
+                         <li>
+                             Aenean sit amet erat nunc
+                         </li>
+                         <li>
+                             Eget porttitor lorem
+                         </li>
+                     </ul>
+
+
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+<script>
+new Vue({
+  el: '#test',
+    data:{
+        YX:[
+            {
+                text:'计信院',
+                ZY:[
+                    {text:'软件工程'},
+                    {text:'计算机科学与技术'},
+                    {text:"信息安全"},
+                ]
+            },
+            { 
+                text:'商学院',
+                ZY:[
+                    {text:'旅游管理'},
+                    {text:'工商管理'},
+                    {text:"行政管理"},
+                ]
+            } ,       
+			{ 
+                text:'药学院',
+                ZY:[
+                    {text:'中药学'},
+                    {text:'西医学'},
+                    {text:"病理学"},
+                ]
+            }      
+        ]
+    },
+  computed: {
+    selection: {
+      get: function() {
+        var that = this;
+        return this.YX.filter(function(item) {
+          return item.text == that.selected;
+        })[0].ZY;
+      }
+    }
+  }
+});
+</script>
+ </body>
+</html>

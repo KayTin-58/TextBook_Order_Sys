@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href='css/main.css' media='screen' rel='stylesheet' type='text/css'/>
+    <script src="/js/vue2.js"></script>
+    <script src="/js/vue2.min.js"></script>
+    <script src="/css/vue2.min.js"></script>
+    <script src="/js/jquery-1.8.0.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+</head>
+
+<body >
+
+<div class="container" id="app">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <br/>
+            <div class="row clearfix">
+                <div class="col-md-12 column" >
+                    <div >
+                        <h1>
+                            管理订单
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" >
+                <div class="col-md-8 column"  >
+
+                    <div style="background-color:#96CDCD">
+                   <!--按钮区-->
+                    <table width="100%" border="0" align="center" cellpadding="3" cellspacing="5" background="#F5FFFA">
+
+                        <tr>
+                            <td width=""></td>
+                            <td width="20%" align="center">
+                                <label>选择学院：</label>
+                                <select  @change="select">
+                                    <option >信息工程学院</option>
+                                    <option >中医基础学院</option>
+                                    <option >药学院</option>
+                                </select>
+                            </td>
+
+                            <td width="5%" >&nbsp;</td>
+                            <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm">删除订单</button>    </td>
+                            <td width="5%">&nbsp;</td>
+                            <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm">全选订单</button> </td>
+                            <td width="5%"></td>
+                            <td  align="center"><form class="navbar-form navbar-left" role="search">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"  placeholder="按书籍名搜索" v-model="Search"/>
+                                    </div>
+                               </form>
+                            </td>
+                            <
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+
+                <div class="col-md-4 column">
+                    <table class="table table-hover" >
+                        <thead>
+                        <tr bgcolor="#DCDCDC">
+                            <th></th>
+                            <th>编号</th>
+                            <th>学院</th>
+                            <th>数量</th>
+                            <th>负责人</th>
+                            <th>书籍名称</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr  v-for="(item,index) in newList ">
+                            <td>
+                                <label>
+                                    <input type="checkbox"/>
+                                </label>
+                            </td>
+                            <td>{{index+1}}</td>
+                            <td>{{item.faculty}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.responsible}}</td>
+                            <td>{{item.bookname}}</td>
+                            <td><button type="button" class="btn btn-link"  @click="toView()">查看</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+  var vm=new Vue({
+      el:'#app',
+      data:{
+          orderLists:[],
+          facultyList:[],
+          Search:'',
+          value:'信息工程学院'
+      },
+
+      mounted: function (){
+          this.getList();
+      },
+
+      methods:{
+           getList:function(){
+               var _this=this;
+               axios.get('/order/getAll').then(function(response){
+                    console.log(response);
+                   _this.orderLists=response.data;
+                   alert("成功："+_this.orderLists.length);
+               },function(errormessage){
+                   //alert("失败"+ +errormessage);
+               })
+
+           },
+
+          select: function(ele) {
+
+              var _this=this;
+              _this.value=ele.target.value;
+              alert(_this.value)
+          }
+
+      },
+
+      beforeCreate:function(){
+
+      },
+
+      computed: {
+
+          newList: function () {
+              var that = this;
+              return that.orderLists.filter(function (item) {
+                  return item.bookname.toLowerCase().indexOf(that.Search.toLowerCase()) !== -1;
+              })
+          }
+          ,
+
+          newList: function () {
+              var that = this;
+              return that.orderLists.filter(function (item) {
+                  return (item.faculty==that.value)&&(item.bookname.toLowerCase().indexOf(that.Search.toLowerCase()) !== -1);
+              })
+          }
+      }
+  });
+</script>
+</html>

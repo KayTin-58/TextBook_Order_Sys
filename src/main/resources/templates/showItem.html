@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href='css/main.css' media='screen' rel='stylesheet' type='text/css'/>
+    <script src="/js/vue2.js"></script>
+    <script src="/js/vue2.min.js"></script>
+    <script src="/css/vue2.min.js"></script>
+    <script src="/js/jquery-1.8.0.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="row clearfix">
+                <div class="col-md-3 column">
+                </div>
+                <div class="col-md-5 column">
+                    <table width="360" border="1" cellpadding="20" cellspacing="10">
+                        <caption><h3>{{order.faculty}}</h3></caption>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#CCFFFF">订单号码：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#CCFFFF">{{order.orderNum}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#CCCC99">书名：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#CCCC99">{{order.bookname}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#CCFF66">版次：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#CCFF66">{{order.edition}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#6666FF">ISBN：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#6666FF">{{order.isbn}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#33CC99">作者：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#33CC99">{{order.author}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#FFCCCC">版本：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#FFCCCC">{{order.version}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#00FFFF">出版社：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#00FFFF">{{order.press}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#999999">单价：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#999999">{{order.unitprice}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#333399">专业：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#333399">{{order.profession}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#666699">届：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#666699">{{order.session}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#66CC99">课程：</td>
+                            <td width="190" height="34" align="center" bgcolor="#66CC99">{{order.course}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#6699FF">申办人:</td>
+                            <td width="190" height="34"  align="center" bgcolor="#6699FF">{{order.responsible}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#99FFFF">数量：</td>
+                            <td width="190" height="34"  align="center" bgcolor="#99FFFF">{{order.quantity}}</td>
+                        </tr>
+                        <tr>
+                            <td width="170" height="34" align="center" bgcolor="#99FFFF">时间：</td>
+                            <td width="190" height="34" align="center" bgcolor="#99FFFF">{{order.quantity}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-3 column">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

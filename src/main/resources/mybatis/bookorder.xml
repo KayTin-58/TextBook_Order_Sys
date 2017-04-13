@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.BoookOrderMapper">
+  <!--教材订阅单的mapper-->
+
+
+
+    <!--
+       /**
+     *
+     * id,
+     orderNum,
+     bookName,
+     edition,
+     isbn,
+     author,
+     VERSION,
+     press,
+     unitprice,
+     faculty,
+     profession,
+     SESSION,
+     semester,
+     campus,
+     course,
+     responsible,
+     quantity
+
+
+
+
+
+bookname;//书名
+    private String author;//作者
+    private String press;//出版社
+    private String isbn;//国际标准号
+    private String version;//版本
+
+    private int id;
+    private String orderNum;
+    private String edition;
+    private String isbn;
+    private String unitprice;
+    private String faculty;
+    private String profession;
+    private String session;//那一届
+    private String semester;//学期
+    private String campus;//校区
+    private String course;//课程
+    private String responsible;//负责人
+    private String quantity;//数量-->
+
+
+
+    <resultMap id="BaseResultMap" type="com.po.RequisitionOrder">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="orderNum" property="orderNum" jdbcType="VARCHAR" />
+        <result column="bookName" property="bookname" jdbcType="VARCHAR" />
+        <result column="edition" property="edition" jdbcType="VARCHAR" />
+        <result column="isbn" property="isbn" jdbcType="VARCHAR" />
+        <result column="author" property="author" jdbcType="VARCHAR" />
+        <result column="version" property="version" jdbcType="VARCHAR" />
+        <result column="press" property="press" jdbcType="VARCHAR" />
+        <result column="unitprice" property="unitprice" jdbcType="VARCHAR" />
+        <result column="faculty" property="faculty" jdbcType="VARCHAR" />
+        <result column="profession" property="profession" jdbcType="VARCHAR" />
+        <result column="session" property="session" jdbcType="VARCHAR" />
+        <result column="semester" property="semester" jdbcType="VARCHAR" />
+        <result column="campus" property="campus" jdbcType="VARCHAR" />
+        <result column="course" property="course" jdbcType="VARCHAR" />
+        <result column="responsible" property="responsible" jdbcType="VARCHAR" />
+        <result column="quantity" property="quantity" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="BOOLEAN" />
+    </resultMap>
+
+<!--获取没有通过的审批单数量-->
+    <select id="getAccount"  parameterType="java.lang.Boolean"  resultType="java.lang.Integer">
+        select count(*) as num from bookorder where state=#{state}
+    </select>
+
+    <!--获取没有通过的审批单-->
+    <select id="selectAllOrderByState"  parameterType="java.lang.Boolean"  resultMap="BaseResultMap">
+        select * from bookorder where state=#{state}
+    </select>
+
+
+
+    <!--获取所有的订单-->
+    <select id="selectAllOrder"  resultMap="BaseResultMap">
+        select * from bookorder
+    </select>
+
+
+    <select id="selectById"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from bookorder where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+   <!--删除已选订单-->
+   <delete id="deleteById" parameterType="java.lang.Integer"  >
+        DELETE FROM bookorder
+           where id = #{id,jdbcType=INTEGER}
+   </delete>
+
+
+
+    <!--更新订阅单状态(变为真)-->
+    <update id="updateOrderStateByID"  parameterType="java.lang.Integer" >
+            update bookorder
+                set state=TRUE  where id=#{id,jdbcType=VARCHAR}
+    </update>
+
+
+
+</mapper>

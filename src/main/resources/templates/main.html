@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href='css/main.css' media='screen' rel='stylesheet' type='text/css'/>
+    <script th:src="@{/js/vue.js}"></script>
+    <script th:src="@{/js/vue-resource.js}"></script>
+    <script th:src="@{/js/jquery-1.8.0.min.js}"></script>
+    <script src="https://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="navbar navbar-duomi navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header" >
+            <a align="center" class="navbar-brand" href="http://www.hbtcm.edu.cn/" id="logo">湖北中医药大学教务在线
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container" >
+    <div class="row clearfix" style="height:100%;z-index:1">
+        <div class="col-md-12 column" >
+            <div class="row clearfix" >
+                <br></br>
+                <div class="col-md-2 column" style="z-index:1">
+
+                                <ul id="main-nav" class="nav nav-tabs nav-stacked" >
+                                    <li class="active">
+                                        <a th:href="@{/html/test.html}" target="menuFrame">
+                                            <i class="glyphicon glyphicon-th-large"></i>
+                                            首页
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">
+                                            <i class="glyphicon glyphicon-cog"></i>
+                                            班级信息管理
+                                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                                        </a>
+
+                                        <ul id="systemSetting" class="nav nav-list collapse in secondmenu ">
+                                            <li><a href="#"  id="faculty"><i class="glyphicon glyphicon-tower"></i>&nbsp;&nbsp;院系管理</a></li>
+                                            <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>&nbsp;&nbsp;专业管理</a></li>
+                                            <li><a href="#"><i class="glyphicon glyphicon-paperclip"></i>&nbsp;&nbsp;班级管理</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#plan" class="nav-header collapsed" data-toggle="collapse">
+                                            <i class="glyphicon glyphicon-credit-card"></i>
+                                            教学计划管理
+                                        </a>
+
+                                        <ul id="plan" class="nav nav-list collapse secondmenu ">
+                                            <li><a href="#" target=""><i class="glyphicon glyphicon-pushpin"></i>&nbsp;&nbsp;修改计划</a></li>
+                                            <li><a href="#"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;新增计划</a></li>
+                                        </ul>
+                                    </li>
+
+
+                                    <li>
+                                        <a href="#order" class="nav-header collapsed" data-toggle="collapse"  >
+                                            <i class="glyphicon glyphicon-credit-card"></i>
+                                            处理订阅单
+                                            <span class="label label-warning pull-right" th:text="${num}"></span>
+                                        </a>
+
+
+                                        <ul  id="order" class="nav nav-list collapse  secondmenu ">
+                                            <li><a th:href="@{/html/approval.html}" target="menuFrame"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;&nbsp;审批订单</a></li>
+                                            <li><a href="#"><i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;查阅订单</a></li>
+                                            <li><a th:href="@{/html/order.html}" target="menuFrame"><i class="glyphicon glyphicon-wrench"></i>&nbsp;&nbsp;管理订单</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a id="book">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                            订单管理
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a  target="menuFrame" href="login.html"  class="menu-item-left">
+                                            <i class="glyphicon glyphicon-fire"></i>
+                                            教材发放管理
+                                        </a>
+                                    </li>
+                                </ul>
+                </div>
+
+               <div class="col-md-10 column" th:id="right" >
+                       <iframe id="menuFrame" name="menuFrame"  scrolling="no"
+                               onload="changeFrameHeight()"    frameborder="0" width="100%" >
+                       </iframe>
+
+               </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+
+
+////班级信息管理
+//        //院系信息管理
+//        $("#faculty").click(function(){
+//            var url="class/faculty";
+//            $.ajax({url:url,success:function(result){
+//                $("#right").html(result);
+//            }});
+//        });
+
+
+
+//教材订阅单处理
+//        $("#approval").click(function(){
+//            var url="order/getorder";
+//            $.post(url,{},function (result) {
+//                alert(result);
+//               $("#right").html(result)
+//            });
+//        });
+
+
+
+    });
+
+
+//解决ifram高度问题
+    function changeFrameHeight(){
+        var ifm= document.getElementById("menuFrame");
+        ifm.height=document.documentElement.clientHeight;
+    }
+    window.onresize=function(){
+        changeFrameHeight();
+    }
+
+</script>
+</body>
+</html>

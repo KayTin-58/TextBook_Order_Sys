@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        
+		<script src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+
+    </head>
+
+    <body>
+        <div id="app">
+
+            <fieldset>
+                <legend>
+                    Create New Person
+                </legend>
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" v-model="newPerson.name"/>
+                </div>
+                <div class="form-group">
+                    <label>Age:</label>
+                    <input type="text" v-model="newPerson.age"/>
+                </div>
+                <div class="form-group">
+                    <label>Sex:</label>
+                    <select v-model="newPerson.sex">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <button @click="createPerson">Create</button>
+                </div>
+				 Search <input name="query" v-model="searchQuery">
+				 <button @click="deleteAll">deleteAll</button>
+				  <button @click="choose">选择年龄小于20岁的</button>
+				  <button @click="paixu">按照年龄排序</button>
+        </fieldset>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Sex</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="person in people | filterBy searchQuery in 'name' ">
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.age }}</td>
+                    <td>{{ person.sex }}</td>
+                    <td :class="'text-center'"><button @click="deletePerson($index)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </body>
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                newPerson: {
+                    name: '',
+                    age: 0,
+                    sex: 'Male'
+                },
+                people: [{
+                    name: 'Jack',
+                    age: 30,
+                    sex: 'Male'
+                }, {
+                    name: 'Bill',
+                    age: 26,
+                    sex: 'Male'
+                }, {
+                    name: 'Tracy',
+                    age: 22,
+                    sex: 'Female'
+                }, {
+                    name: 'Chris',
+                    age: 36,
+                    sex: 'Male'
+                }]
+            },
+            methods:{
+                createPerson: function(){
+                    this.people.push(this.newPerson);
+                    // 添加完newPerson对象后，重置newPerson对象
+                    this.newPerson = {name: '', age: 0, sex: 'Male'}
+                },
+                deletePerson: function(index){
+                    // 删一个数组元素
+                    this.people.splice(index,1);
+                },
+				deleteAll:function(){
+					 this.people.splice(0,this.people.length);
+				} 	,
+		
+				choose:function(){
+		   		    this.people= this.people.filter(function(item) {
+							  return item.age<20&&(item.sex="Male")
+					})
+		      }  ,
+
+			   paixu:function(){
+				 		  this.people=this.people.sort(function(a,b){
+                                                   return a.age-b.age});
+				 }
+            }		    
+        })
+    </script>
+
+</html>

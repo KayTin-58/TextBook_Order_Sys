@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href='css/main.css' media='screen' rel='stylesheet' type='text/css'/>
+    <script src="/js/vue2.js"></script>
+    <script src="/js/vue2.min.js"></script>
+    <script src="/css/vue2.min.js"></script>
+    <script src="/js/jquery-1.8.0.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div class="container"  >
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="row clearfix" id="app">
+                <div class="col-md-2 column">
+                </div>
+                <div class="col-md-8 column">
+                    <br/>
+                    <form class="form-horizontal" role="form"  action="/order/addItem"  id="myForm" method="post">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">订单号</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  name="orderNum"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">院系</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="faculty"  >
+                                    <option>信息工程学院</option>
+                                    <option>药学院</option>
+                                    <option>护理学院</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">专业</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="profession">
+                                    <option >医学信息工程</option>
+                                    <option>信息管理</option>
+                                    <option>物联网工程</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">教材名称</label>
+                            <div class="col-sm-6">
+                                <input list="pasta" class="form-control" name="bookname"/>
+
+                                <datalist id="pasta">
+                                    <option>Bavette</option>
+                                    <option>Cannelloni</option>
+                                </datalist>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">版次</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  name="edition"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">ISBN</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  name="isbn"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">作者</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  name="author"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">版本</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  name="version"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">出版社</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  name="press"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">单价</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  name="unitprice"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">入学时间</label>
+                            <div class="col-sm-6">
+                                <input type="date" class="form-control"  name="session"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">学期</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="semester">
+                                    <option>第一学期</option>
+                                    <option>第二学期</option>
+                                    <option>第三学期</option>
+                                    <option>第四学期</option>
+                                    <option>第五学期</option>
+                                    <option>第六学期</option>
+                                    <option>第七学期</option>
+                                    <option>第八学期</option>
+                                    <option>第九学期</option>
+                                    <option>第十学期</option>
+                                    <option>第十一学期</option>
+                                    <option>第十二学期</option>
+                                    <option>第十三学期</option>
+                                    <option>第十四学期</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label" >校区</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="campus">
+                                    <option>黄家湖校区</option>
+                                    <option>昙华林校区</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">课程</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="course">
+                                    <option>中医基础</option>
+                                    <option>医学数字图像</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">处理人</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  name="responsible"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label" name="quantity">数量</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label"></label>
+                            <div class="col-sm-6">
+                                <input id="submit"  type="submit" class="btn btn-info btn-sm" value="确认添加"/>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2 column">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+<script>
+    var vn=new Vue({
+        el: '#app',
+        data: {
+            xueyuans:[],
+            zhuanyes:[],
+            jiaocais[],
+            chubanshes:[]
+
+
+        },
+
+        mounted: function () {
+
+        },
+        methods: {
+            getList:function(){
+                var that=this;
+                axios.get("/student/faculty").then(function(response){
+                    that.xueyuans=response.data;
+                },function(errormessage){
+                    alert("获取信息失败！！！")
+                })
+            }
+        }
+    })
+
+</script>
+</html>

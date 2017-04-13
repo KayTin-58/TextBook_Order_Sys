@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.SysMasterMapper">
+  <!--系统管理员的mapper-->
+    <resultMap id="BaseResultMap" type="com.po.SysMaster" >
+        <id column="MID" property="Mid" jdbcType="INTEGER" />
+        <result column="Accountnum" property="AccountNum" jdbcType="VARCHAR" />
+        <result column="mPassword" property="mPassword" jdbcType="VARCHAR" />
+        <result column="mName" property="mName" jdbcType="VARCHAR" />
+        <result column="Phone" property="Phone" jdbcType="VARCHAR" />
+        <result column="Identificationnum" property="Identificationnum" jdbcType="VARCHAR" />
+        <result column="State" property="State" jdbcType="INTEGER" />
+    </resultMap>
+
+
+
+    <!--根据账号获取管理员对象-->
+
+    <select id="selectByAccountnum" parameterType="java.lang.String"  resultMap="BaseResultMap">
+        SELECT 	* FROM systemadmaster where Accountnum=#{Accountnum}
+    </select>
+
+    <!--添加系统管理员信息-->
+    <insert id="insertSelective" parameterType="com.po.SysMaster">
+        INSERT INTO systemadmaster
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="Accountnum != null" >
+                Accountnum,
+            </if>
+            <if test="mPassword != null" >
+                mPassword,
+            </if>
+            <if test="mName != null" >
+                mName,
+            </if>
+            <if test="Phone != null" >
+                Phone,
+            </if>
+            <if test="Identificationnum != null" >
+                Identificationnum,
+            </if>
+            <if test="State != null" >
+                State,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="Accountnum != null" >
+                #{Accountnum,jdbcType=VARCHAR},
+            </if>
+            <if test="mPassword != null" >
+                #{mPassword,jdbcType=INTEGER},
+            </if>
+            <if test="mName != null" >
+                #{mName,jdbcType=INTEGER},
+            </if>
+            <if test="Phone != null" >
+                #{Phone,jdbcType=INTEGER},
+            </if>
+            <if test="Identificationnum != null" >
+                #{Identificationnum,jdbcType=INTEGER},
+            </if>
+            <if test="State != null" >
+                #{State,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+  <!--更新管理员信息-->
+    <update id="updateSysMaster" parameterType="com.po.SysMaster" >
+        update user
+        <set >
+            <if test="mPassword != null" >
+                age = #{mPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="mName != null" >
+                age = #{mName,jdbcType=VARCHAR},
+            </if>
+            <if test="Phone != null" >
+                age = #{Phone,jdbcType=VARCHAR},
+            </if>
+            <if test="Identificationnum != null" >
+                age = #{Identificationnum,jdbcType=VARCHAR},
+            </if>
+            <if test="State != null" >
+                age = #{State,jdbcType=INTEGER},
+            </if>
+        </set>
+        where Accountnum = #{Accountnum,jdbcType=VARCHAR}
+    </update>
+</mapper>

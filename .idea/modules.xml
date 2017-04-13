@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../conn1/conn/conn.iml" filepath="$PROJECT_DIR$/../conn1/conn/conn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zhang.iml" filepath="$PROJECT_DIR$/zhang.iml" />
+    </modules>
+  </component>
+</project>
