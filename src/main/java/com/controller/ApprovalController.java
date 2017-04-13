@@ -40,7 +40,7 @@ public class ApprovalController {
 
 
 
-    //删除订阅单的请求
+
     @RequestMapping(value="/deleteAll")
     @ResponseBody
     public void DeleteAllYx(@RequestParam(value = "ids[]")Integer[]   ids){
