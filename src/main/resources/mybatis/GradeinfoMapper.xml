@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.GradeinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Gradeinfo" >
+    <id column="gradeId" property="gradeid" jdbcType="INTEGER" />
+    <result column="college" property="college" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="numOfClass" property="numofclass" jdbcType="INTEGER" />
+    <result column="numOfStu" property="numofstu" jdbcType="INTEGER" />
+    <result column="campus" property="campus" jdbcType="VARCHAR" />
+    <result column="schoolSystem" property="schoolSystem" jdbcType="INTEGER" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    gradeId,college, grade, profession, numOfClass, numOfStu, campus,schoolSystem
+  </sql>
+<!--根据年级id查询该年级信息-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gradeinfo
+    where gradeId = #{gradeid,jdbcType=INTEGER}
+  </select>
+  <!--查询所有年级信息-->
+<select id="selectAllgrade" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from gradeinfo
+</select>
+  <!--查询所有学院-->
+  <select id="selectAllCollege" resultType="java.lang.String">
+    select DISTINCT
+    college
+    from gradeinfo
+  </select>
+  <!--查询某个学院的所有专业-->
+  <select id="selectAllProfessionByCollege"  parameterType="java.lang.String" resultType="java.lang.String">
+    select DISTINCT
+    profession
+    from gradeinfo
+    WHERE  college =#{college,jdbcType=VARCHAR}
+  </select>
+  <!--查询所有专业-->
+  <select id="selectAllProfession" resultType="java.lang.String">
+    select DISTINCT
+    profession
+    from gradeinfo
+  </select>
+  <!--按学院，专业，年级，校区查找年级-->
+  <select id="selectgradeId" resultMap="BaseResultMap" parameterType="com.po.KeyfiledOfGradeinfo" >
+     select
+    <include refid="Base_Column_List" />
+    from gradeinfo
+    WHERE college=#{college,jdbcType=VARCHAR} AND
+     grade = #{grade,jdbcType=INTEGER} AND
+      profession= #{profession,jdbcType=VARCHAR} AND
+        campus = #{campus,jdbcType=VARCHAR}
+  </select>
+  <!--按年级id删除某条信息-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gradeinfo
+    where gradeId = #{gradeid,jdbcType=INTEGER}
+  </delete>
+
+<!--插入年级信息-->
+  <insert id="insert" parameterType="com.po.Gradeinfo"
+ useGeneratedKeys="true" keyProperty="gradeid">
+    insert into gradeinfo (gradeId, college, grade,
+      profession, numOfClass, numOfStu,
+      campus,schoolSystem)
+    values (#{gradeid,jdbcType=INTEGER}, #{college,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER},
+      #{profession,jdbcType=VARCHAR}, #{numofclass,jdbcType=INTEGER}, #{numofstu,jdbcType=INTEGER},
+      #{campus,jdbcType=VARCHAR}, #{schoolSystem,jdbcType=INTEGER})
+  </insert>
+
+  <!--修改年级信息-->
+  <update id="updateByPrimaryKey" parameterType="com.po.Gradeinfo">
+    update gradeinfo
+    set college = #{college,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      profession = #{profession,jdbcType=VARCHAR},
+      numOfClass = #{numofclass,jdbcType=INTEGER},
+      numOfStu = #{numofstu,jdbcType=INTEGER},
+      campus = #{campus,jdbcType=VARCHAR},
+      schoolSystem=#{schoolSystem,jdbcType=INTEGER}
+    where gradeId = #{gradeid,jdbcType=INTEGER}
+  </update>
+</mapper>

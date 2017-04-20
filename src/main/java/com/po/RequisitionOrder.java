@@ -12,7 +12,7 @@ public class RequisitionOrder  extends Book implements Serializable{
     private int id;
     private String orderNum;
     private String edition;//版次
-    private String unitprice;//单价
+
     private String faculty;//院系
     private String profession;//专业
     private String session;//那一届
@@ -34,9 +34,7 @@ public class RequisitionOrder  extends Book implements Serializable{
         this.edition = edition;
     }
 
-    public void setUnitprice(String unitprice) {
-        this.unitprice = unitprice;
-    }
+
 
     public void setFaculty(String faculty) {
         this.faculty = faculty;
@@ -82,9 +80,7 @@ public class RequisitionOrder  extends Book implements Serializable{
         return edition;
     }
 
-    public String getUnitprice() {
-        return unitprice;
-    }
+
 
     public String getFaculty() {
         return faculty;
@@ -124,7 +120,6 @@ public class RequisitionOrder  extends Book implements Serializable{
                 "id=" + id +
                 ", orderNum='" + orderNum + '\'' +
                 ", edition='" + edition + '\'' +
-                ", unitprice='" + unitprice + '\'' +
                 ", faculty='" + faculty + '\'' +
                 ", profession='" + profession + '\'' +
                 ", session='" + session + '\'' +

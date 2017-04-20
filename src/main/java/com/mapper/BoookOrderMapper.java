@@ -53,4 +53,11 @@ public interface BoookOrderMapper {
      */
     public void updateOrderStateByID(Integer id);
 
+
+    /**
+     * 插入一条订阅单记录
+     * @param ro
+     */
+    public void insertOrder(RequisitionOrder ro);
+
 }

@@ -46,5 +46,12 @@ public interface BookOrderService {
     public RequisitionOrder selectOneByID(Integer id);
 
 
+    /**
+     * 根据id更新订单状态
+     * @param id
+     */
     public void updateOrderStateByID(Integer id);
+
+
+    public void addOrder(RequisitionOrder ro);
 }

@@ -60,7 +60,7 @@
                                 <td width="2%" >&nbsp;</td>
                                 <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm" @click="showAll">查看全部</button></td>
 
-                                <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm" @click="agrApplication()">同意申请</button></td>
+                                <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm" @click="agrApplication">同意申请</button></td>
 
                                 <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm">打印订单</button></td>
 
@@ -221,6 +221,7 @@
 
         methods:{
             getList:function(){
+
                 var _this=this;
                 axios.get('/order/getAllwtg').then(function(response){
                     console.log(response);
@@ -256,8 +257,6 @@
 
                 this.idArray.push(item.id);
 
-                alert(item.bookname+"shanchu")
-
                 if(typeof item.checked == "undefined"){
                     //Vue.set(product,"checked",true);给item注册添加新属性
                     this.$set(item,"checked",true);
@@ -270,6 +269,9 @@
                    var isCheck=this.checkAll;
                    var _this=this;
                    this.orderLists.forEach(function(item){
+
+                       _this.idArray.push(item.id);
+
                        if(typeof item.checked == "undefined"){
                            _this.$set(item,"checked",!isCheck);
                        }else{
@@ -277,19 +279,24 @@
                        }
                        _this.checkAll=!isCheck;
                    })
+
+
             },
+
  //同意申请
             agrApplication:function(){
+
                var that=this;
+                alert("所有的id"+that.idArray);
                 $.ajax({
                     url : '/order/approv',
                     type : "post",
-                    data :{ids:_this.idArray},
-                    success : function(data) {
-                        _this.orderLists.forEach(function(item,index){
+                    data :{ids:that.idArray},
+                    success:function(data) {
+                        that.orderLists.forEach(function(item,index){
                             if(item.checked==true){
                                 alert(item.bookname)
-                                _this.orderLists.splice(index,1);//删除
+                                that.orderLists.splice(index,1);//删除
                             }
                         })
                     }

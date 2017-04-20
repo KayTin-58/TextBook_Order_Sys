@@ -14,42 +14,78 @@
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 </head>
 <body>
-<div class="container"  >
+<div class="container"  id="new_app">
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <div class="row clearfix" id="app">
+            <div class="row clearfix" >
                 <div class="col-md-2 column">
                 </div>
                 <div class="col-md-8 column">
                     <br/>
-                    <form class="form-horizontal" role="form"  action="/order/addItem"  id="myForm" method="post">
+                    <form class="form-horizontal" role="form"  action="/student/addItem"  id="myForm" method="post">
                         <div class="form-group">
                             <label  class="col-sm-2 control-label">订单号</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control"  name="orderNum"/>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label  class="col-sm-2 control-label">院系</label>
                             <div class="col-sm-6">
-                                <select class="form-control" name="faculty"  >
-                                    <option>信息工程学院</option>
-                                    <option>药学院</option>
-                                    <option>护理学院</option>
-
+                                <select class="form-control"  name="faculty" @change="getList">
+                                    <option  v-for="item in xueyuans" >
+                                        {{item}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
+
+
                         <div class="form-group">
                             <label  class="col-sm-2 control-label">专业</label>
                             <div class="col-sm-6">
-                                <select class="form-control" name="profession">
-                                    <option >医学信息工程</option>
-                                    <option>信息管理</option>
-                                    <option>物联网工程</option>
+                                <select class="form-control" name="profession" >
+                                    <option v-for="zy in zhuanyes" >
+                                        {{zy}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">学期</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="semester">
+                                    <option value="第一学期">第一学期</option>
+                                    <option value="第二学期">第二学期</option>
+                                    <option value="第三学期">第三学期</option>
+                                    <option value="第四学期">第四学期</option>
+                                    <option value="第五学期">第五学期</option>
+                                    <option value="第六学期">第六学期</option>
+                                    <option value="第七学期">第七学期</option>
+                                    <option value="第八学期">第八学期</option>
+                                    <option value="第九学期">第九学期</option>
+                                    <option value="第十学期">第十学期</option>
+                                    <option value="第十一学期">第十一学期</option>
+                                    <option value="第十二学期">第十二学期</option>
+                                    <option value="第十三学期">第十三学期</option>
+                                    <option value="第十四学期">第十四学期</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">课程</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="course">
+                                    <option>中医基础</option>
+                                    <option>医学数字图像</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label  class="col-sm-2 control-label">教材名称</label>
                             <div class="col-sm-6">
@@ -105,27 +141,7 @@
                                 <input type="date" class="form-control"  name="session"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label">学期</label>
-                            <div class="col-sm-6">
-                                <select class="form-control" name="semester">
-                                    <option>第一学期</option>
-                                    <option>第二学期</option>
-                                    <option>第三学期</option>
-                                    <option>第四学期</option>
-                                    <option>第五学期</option>
-                                    <option>第六学期</option>
-                                    <option>第七学期</option>
-                                    <option>第八学期</option>
-                                    <option>第九学期</option>
-                                    <option>第十学期</option>
-                                    <option>第十一学期</option>
-                                    <option>第十二学期</option>
-                                    <option>第十三学期</option>
-                                    <option>第十四学期</option>
-                                </select>
-                            </div>
-                        </div>
+
                         <div class="form-group">
                             <label  class="col-sm-2 control-label" >校区</label>
                             <div class="col-sm-6">
@@ -135,15 +151,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label">课程</label>
-                            <div class="col-sm-6">
-                                <select class="form-control" name="course">
-                                    <option>中医基础</option>
-                                    <option>医学数字图像</option>
-                                </select>
-                            </div>
-                        </div>
+
                         <div class="form-group">
                             <label  class="col-sm-2 control-label">处理人</label>
                             <div class="col-sm-6">
@@ -177,31 +185,44 @@
 
 
 <script>
-    var vn=new Vue({
-        el: '#app',
-        data: {
-            xueyuans:[],
-            zhuanyes:[],
-            jiaocais[],
-            chubanshes:[]
 
 
-        },
+    $(document).ready(function() {
+        var vn=new Vue({
+            el: '#new_app',
+            data: {
+                xueyuans:[],
+                zhuanyes:[]
+            },
 
-        mounted: function () {
+            mounted: function () {
+                this.getList_XY();
+            },
 
-        },
-        methods: {
-            getList:function(){
-                var that=this;
-                axios.get("/student/faculty").then(function(response){
-                    that.xueyuans=response.data;
-                },function(errormessage){
-                    alert("获取信息失败！！！")
-                })
+            methods: {
+                getList_XY:function(){
+                    var that=this;
+                    axios.get('/stu/faculty').then(function(response){
+                        that.xueyuans=response.data;
+                    },function(errormessage){
+                        alert("获取信息失败！！！")
+                    })
+                },
+
+                getList:function(ele){
+                    var that=this;
+                    axios.get('/stu/zhuanyes',{
+                        params: {
+                            XYName:ele.target.value
+                        }
+                    }).then(function(response){
+                        that.zhuanyes=response.data;
+                    })
+                }
             }
-        }
-    })
+        });
+    });
+
 
 </script>
 </html>

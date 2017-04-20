@@ -5,50 +5,50 @@
 
 
 
-    <!--
-       /**
-     *
-     * id,
-     orderNum,
-     bookName,
-     edition,
-     isbn,
-     author,
-     VERSION,
-     press,
-     unitprice,
-     faculty,
-     profession,
-     SESSION,
-     semester,
-     campus,
-     course,
-     responsible,
-     quantity
+    <!--&lt;!&ndash;-->
+       <!--/**-->
+     <!--*-->
+     <!--* id,-->
+     <!--orderNum,-->
+     <!--bookName,-->
+     <!--edition,-->
+     <!--isbn,-->
+     <!--author,-->
+     <!--VERSION,-->
+     <!--press,-->
+     <!--unitprice,-->
+     <!--faculty,-->
+     <!--profession,-->
+     <!--SESSION,-->
+     <!--semester,-->
+     <!--campus,-->
+     <!--course,-->
+     <!--responsible,-->
+     <!--quantity-->
+
+
+    <!--bookname;//书名-->
+    <!--private String author;//作者-->
+    <!--private String press;//出版社-->
+    <!--private String isbn;//国际标准号-->
+    <!--private String version;//版本-->
+
+    <!--private int id;-->
+    <!--private String orderNum;-->
+    <!--private String edition;-->
+    <!--private String isbn;-->
+    <!--private String unitprice;-->
+    <!--private String faculty;-->
+    <!--private String profession;-->
+    <!--private String session;//那一届-->
+    <!--private String semester;//学期-->
+    <!--private String campus;//校区-->
+    <!--private String course;//课程-->
+    <!--private String responsible;//负责人-->
+    <!--private String quantity;//数量&ndash;&gt;-->
 
 
 
-
-
-bookname;//书名
-    private String author;//作者
-    private String press;//出版社
-    private String isbn;//国际标准号
-    private String version;//版本
-
-    private int id;
-    private String orderNum;
-    private String edition;
-    private String isbn;
-    private String unitprice;
-    private String faculty;
-    private String profession;
-    private String session;//那一届
-    private String semester;//学期
-    private String campus;//校区
-    private String course;//课程
-    private String responsible;//负责人
-    private String quantity;//数量-->
 
 
 
@@ -69,7 +69,7 @@ bookname;//书名
         <result column="campus" property="campus" jdbcType="VARCHAR" />
         <result column="course" property="course" jdbcType="VARCHAR" />
         <result column="responsible" property="responsible" jdbcType="VARCHAR" />
-        <result column="quantity" property="quantity" jdbcType="VARCHAR" />
+        <result column="quantity" property="quantity" jdbcType="INTEGER" />
         <result column="state" property="state" jdbcType="BOOLEAN" />
     </resultMap>
 
@@ -110,6 +110,16 @@ bookname;//书名
                 set state=TRUE  where id=#{id,jdbcType=VARCHAR}
     </update>
 
+
+
+    <!--插入一条申请单-->
+    <insert id="insertOrder"   parameterType="com.po.RequisitionOrder">
+       INSERT INTO bookorder
+	       ( orderNum, bookName, edition, isbn, author, VERSION, press, unitprice,
+	          faculty, profession, SESSION, semester, campus, course, responsible, quantity, state)
+	   VALUES  (#{orderNum},#{bookname},#{edition},#{isbn},#{author},#{version},#{press},#{unitprice},
+	            #{faculty},#{profession},#{session},#{semester},#{campus},#{course},#{responsible},#{quantity},#{state},);
+    </insert>
 
 
 </mapper>

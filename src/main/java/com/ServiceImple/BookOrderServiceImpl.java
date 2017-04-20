@@ -2,12 +2,14 @@ package com.ServiceImple;
 
 
 import com.mapper.BoookOrderMapper;
+import com.po.Book;
 import com.po.RequisitionOrder;
 import com.service.BookOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 直到世界尽头 on 3/12 0012.
@@ -20,6 +22,7 @@ public class BookOrderServiceImpl implements BookOrderService{
 
     @Autowired
     private BoookOrderMapper bookordermp;
+
 
 
     @Override
@@ -63,10 +66,48 @@ public class BookOrderServiceImpl implements BookOrderService{
     }
 
 
+    /**
+     * 单个更新教材订阅单状态
+     * @param id
+     */
     @Override
     public void updateOrderStateByID(Integer id){
         //需要新教材库存
-
         bookordermp.updateOrderStateByID(id);
     }
+
+
+    /**
+     *一次更新多个订单状态
+     * @param ids
+     */
+    public void updateStaByIDS(Integer[] ids){
+       for(int i=0;i<ids.length;i++){
+           this.updateOrderStateByID(ids[i]);
+       }
+    }
+
+    /**
+     * 添加新的订单
+     * @param ro
+     */
+    @Override
+    public void addOrder(RequisitionOrder ro) {
+        bookordermp.insertOrder(ro);
+    }
+
+
+    /**
+     * 获取所有book集合
+     * @param ids
+     * @return
+     */
+    public List<Book>  getListByIds(Integer[]  ids){
+        List<Book> lists=new ArrayList<Book>();
+        for(int i=0;i<ids.length;i++){
+            lists.add((Book) this.selectOneByID(ids[i]));
+        }
+        return lists;
+    }
+
 }
