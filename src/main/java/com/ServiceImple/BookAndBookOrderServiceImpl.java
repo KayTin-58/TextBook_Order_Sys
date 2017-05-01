@@ -1,6 +1,7 @@
 package com.ServiceImple;
 
 import com.po.Book;
+import com.po.RequisitionOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,13 +27,15 @@ public class BookAndBookOrderServiceImpl {
      */
 
     public void  updateBookInfByBookOrder(Integer[] ids){
-        List<Book> lists=bkorderService.getListByIds(ids);
-
+        List<RequisitionOrder> lists=bkorderService.getListByIds(ids);
+        Book _bk=null;
         for(int i=0;i<lists.size();i++){
-            Book bk=bkservice.IsCunzaiBookByNameAndISBN(lists.get(i));
+            Book bk=bkservice.IsCunzaiBookByNameAndISBN((Book) lists.get(i));
             if(bk!=null){
                 //跟新数量
-                bkservice.updateBkNum(lists.get(i));
+                _bk=lists.get(i);
+                _bk.setQuantity(bk.getQuantity()+_bk.getQuantity());
+                bkservice.updateBkNum(_bk);
             }else{
                 //添加新教材信息
                 bkservice.addBook(lists.get(i));

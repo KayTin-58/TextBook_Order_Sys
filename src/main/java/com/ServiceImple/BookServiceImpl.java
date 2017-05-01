@@ -53,11 +53,19 @@ public class BookServiceImpl implements BookService{
     }
 
     /**
-     * 跟新书本教材信息
+     * 跟新书本教材数量信息
      * @param bk
      */
     @Override
     public void updateBkNum(Book bk) {
+        Book book=this.IsCunzaiBookByNameAndISBN(bk);
+        int num=0;//原始数量
+        if(book!=null){
+            num=book.getQuantity();
+        }
+        num=num+bk.getQuantity();
+        bk.setQuantity(num);
+
         bkmap.updateBookNum(bk);
     }
 
@@ -71,5 +79,12 @@ public class BookServiceImpl implements BookService{
         for(int i=0;i<bks.size();i++){
             this.updateBkNum(bks.get(i));
         }
+    }
+
+
+    @Override
+    public List<Book> getAllBook() {
+
+        return bkmap.selectAllBook();
     }
 }

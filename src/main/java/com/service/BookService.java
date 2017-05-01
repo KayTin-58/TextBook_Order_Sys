@@ -18,4 +18,8 @@ public interface BookService {
     public void updateBkNum(Book bk);
 
     public void updateList(List<Book> bks);
+
+    public List<Book> getAllBook();
+
+
 }

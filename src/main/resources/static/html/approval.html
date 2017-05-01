@@ -62,7 +62,7 @@
 
                                 <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm" @click="agrApplication">同意申请</button></td>
 
-                                <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm">打印订单</button></td>
+                                <td width="15%" align="center"><button type="button" class="btn btn-info btn-sm" @click="printOrder">打印订单</button></td>
 
                                 <td  align="center"><form class="navbar-form navbar-left" role="search">
                                     <div class="form-group">
@@ -249,13 +249,13 @@
 
 //查看
             toView:function (item) {
-                alert("查看为审批订单详情！！！！")
+
             },
 
 //选择一个订单
             selectOne:function(item){
 
-                this.idArray.push(item.id);
+                //this.idArray.push(item.id);
 
                 if(typeof item.checked == "undefined"){
                     //Vue.set(product,"checked",true);给item注册添加新属性
@@ -268,9 +268,9 @@
             selectAll:function(){
                    var isCheck=this.checkAll;
                    var _this=this;
-                   this.orderLists.forEach(function(item){
+                   _this.orderLists.forEach(function(item){
 
-                       _this.idArray.push(item.id);
+                       //_this.idArray.push(item.id);
 
                        if(typeof item.checked == "undefined"){
                            _this.$set(item,"checked",!isCheck);
@@ -283,10 +283,25 @@
 
             },
 
+//计算所有被选中的目标的id的集合
+            Calculation:function(){
+               var that=this;
+               that.idArray=[];
+               that.orderLists.forEach(function(item){
+                   if(typeof item.checked == "undefined"){
+
+                   }else{
+                       if(item.checked==true){
+                           that.idArray.push(item.id);
+                       }
+                   }
+               })
+            },
+
  //同意申请
             agrApplication:function(){
-
                var that=this;
+               that.Calculation();
                 alert("所有的id"+that.idArray);
                 $.ajax({
                     url : '/order/approv',
@@ -295,16 +310,26 @@
                     success:function(data) {
                         that.orderLists.forEach(function(item,index){
                             if(item.checked==true){
-                                alert(item.bookname)
+                                //alert(item.bookname)
                                 that.orderLists.splice(index,1);//删除
                             }
                         })
                     }
                 });
             },
-//添加申请单
-            addOrder:function(){
 
+
+ //打印订单
+            printOrder:function(){
+                that.Calculation();
+                $.ajax({
+                    url : '/order/printOrder',
+                    type : "post",
+                    data :{ids:that.idArray},
+                    success:function(data) {
+                        alert("打印订单  请求成功")
+                    }
+                });
             }
         },
 //

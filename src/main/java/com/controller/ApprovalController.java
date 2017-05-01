@@ -89,4 +89,15 @@ public class ApprovalController {
         System.out.println("新的订单"+ro);
         orderService.addOrder(ro);
     }
+
+
+    /**
+     * 打印订单
+     * @param ids
+     */
+    public void PrintOrder(@RequestParam(value = "ids[]")Integer[]  ids){
+        ArrayList<RequisitionOrder>  list=( ArrayList<RequisitionOrder>)orderService.getListByIds(ids);
+
+        //ExcelPrint.PrintExcel_BookOrder(list,"申请订阅单");
+    }
 }

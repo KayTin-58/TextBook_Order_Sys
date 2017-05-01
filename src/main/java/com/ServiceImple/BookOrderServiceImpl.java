@@ -2,7 +2,6 @@ package com.ServiceImple;
 
 
 import com.mapper.BoookOrderMapper;
-import com.po.Book;
 import com.po.RequisitionOrder;
 import com.service.BookOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,14 +97,14 @@ public class BookOrderServiceImpl implements BookOrderService{
 
 
     /**
-     * 获取所有book集合
+     * 根据id集获取对应的订单集
      * @param ids
      * @return
      */
-    public List<Book>  getListByIds(Integer[]  ids){
-        List<Book> lists=new ArrayList<Book>();
+    public List<RequisitionOrder>  getListByIds(Integer[]  ids){
+        List<RequisitionOrder> lists=new ArrayList<RequisitionOrder>();
         for(int i=0;i<ids.length;i++){
-            lists.add((Book) this.selectOneByID(ids[i]));
+            lists.add( this.selectOneByID(ids[i]));
         }
         return lists;
     }

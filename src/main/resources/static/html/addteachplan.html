@@ -5,38 +5,97 @@
     <title></title>
     <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href='css/main.css' media='screen' rel='stylesheet' type='text/css'/>
-    <script th:src="@{/js/vue.js}"></script>
-    <script th:src="@{/js/vue-resource.js}"></script>
-    <script th:src="@{/js/jquery-1.8.0.min.js}"></script>
+    <script src="/js/vue2.js"></script>
+    <script src="/js/vue2.min.js"></script>
+    <script src="/css/vue2.min.js"></script>
+    <script src="/js/jquery-1.8.0.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    <style type="text/css">
+        input{
+            width:300px;
+            height: 30px;
+            border:1px solid red;
+        }
+        tr{
+            height: 30px;
+        }
+    </style>
+
 </head>
 
 <body>
-<div class="navbar navbar-duomi navbar-static-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header" >
-            <a align="center" class="navbar-brand" href="http://www.hbtcm.edu.cn/" id="logo">湖北中医药大学教务在线
-            </a>
-        </div>
-    </div>
-</div>
-
-
 
 <div class="">
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="row clearfix">
-                <div class="col-md-2 column">
-                    <!--空白区-->
-                </div>
-
-                <!--内容区-->
-                <div class="col-md-10 column" >
-
+                <div class="col-md-12 column">
+                    <div >
+                        <h1>
+                            新增教学计划
+                        </h1>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <!--按钮区-->
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <form class="col-md-12 column">
+                        <table width="900" border="0" cellpadding="1" cellspacing="5">
+                            <tr>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>课程名：</label></td>
+                                <td><input  type="text" value="" /></td>
+                                <td width="150" align="right" bgcolor="#00FFFF"><label>学院：</label></td>
+                                <td><input  type="text" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>入学时间：</label></td>
+                                <td><input  type="text" value="" /></td>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>专业：</label></td>
+                                <td><input  type="text" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>班级数量：</label></td>
+                                <td><input  type="text" value="" /></td>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>总人数：</label></td>
+                                <td><input  type="text" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>书名：</label></td>
+                                <td><input  type="text" value="" /></td>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>作者：</label></td>
+                                <td><input  type="text" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>出版社：</label></td>
+                                <td><input  type="text" value="" /></td>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>ISBN名：</label></td>
+                                <td><input  type="text" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td width="100" align="right" bgcolor="#00FFFF"><label>校区：</label></td>
+                                <td><input  type="text" value="" /></td>
+                            </tr>
+                        </table>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-md-2 column">
+                    <!--内容显示区-->
+                </div>
+            </div>
+         </div>
     </div>
 </div>
 </body>
