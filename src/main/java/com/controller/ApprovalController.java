@@ -88,6 +88,7 @@ public class ApprovalController {
     public void AddOrder(RequisitionOrder ro){
         System.out.println("新的订单"+ro);
         orderService.addOrder(ro);
+
     }
 
 

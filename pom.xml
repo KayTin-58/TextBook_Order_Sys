@@ -88,11 +88,12 @@
             <scope>test</scope>
         </dependency>
 
-<!--自动重启-->
+<!--自动重启   -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>

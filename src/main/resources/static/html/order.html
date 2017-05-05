@@ -133,7 +133,7 @@
                         </thead>
                         <tbody>
 
-                        <tr  v-for="(item,index) in newList ">
+                        <tr  v-for="(item,index) in newList">
                             <td>
                                 <input type="checkbox"   v-bind:checked="item.checked" @click="selectOne(item)">
                                 </input>
@@ -150,23 +150,24 @@
                         </tbody>
                     </table>
                 </div>
+        </div>
 
-
-                sajdhjhashxlsahjksahdjsahdsahdhsalkdhsajdhsa
-<!--分页部件-->
-                <div id="pager_bar" class="col-md-12 column">
-                    <ul>
-                        <li v-if="cur>1"><a v-on:click="cur--,pageClick()">上一页</a></li>
-                        <li v-if="cur==1"><a class="banclick">上一页</a></li>
-                        <li v-for="index in indexs" v-bind:class="{ 'active': cur == index}">
-                            <a v-on:click="btnClick(index)">{{ index }}</a>
-                        </li>
-                        <li v-if="cur!=all"><a v-on:click="cur++,pageClick()">下一页</a></li>
-                        <li v-if="cur == all"><a class="banclick">下一页</a></li>
-                        <li><a>共<i>{{all}}</i>页</a></li>
-                    </ul>
-                </div>
-
+            <!--分页部件-->
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="col-md-7 column"></div>
+            <div id="pager_bar" class="col-md-5 column">
+                <ul>
+                    <li v-if="cur>1"><a v-on:click="cur--,pageClick()">上一页</a></li>
+                    <li v-if="cur==1"><a class="banclick">上一页</a></li>
+                    <li v-for="index in indexs" v-bind:class="{ 'active': cur == index}">
+                        <a v-on:click="btnClick(index)">{{ index }}</a>
+                    </li>
+                    <li v-if="cur!=all"><a v-on:click="cur++,pageClick()">下一页</a></li>
+                    <li v-if="cur == all"><a class="banclick">下一页</a></li>
+                    <li><a>共<i>{{all}}</i>页</a></li>
+                </ul>
+            </div>
             </div>
         </div>
     </div>
@@ -254,6 +255,7 @@
         </div><!-- /.modal -->
     </div>
 </div>
+</div>
 
 </body>
 <script>
@@ -268,11 +270,12 @@
           idArray:[],
           index:[],
 
-
-          all: 8, //总页数
-          cur: 1//当前页码
-
-
+          all: 5, //总页数
+          cur: 1,//当前页码
+          amount:2,//单页显示的数量
+          beg:0,//
+          end:3,
+          list:[]//用来存放当前页所有数据的一个临时集合
 
 
 
@@ -288,7 +291,7 @@
                axios.get('/order/getAll').then(function(response){
                     console.log(response);
                    _this.orderLists=response.data;
-                 //  alert("成功："+_this.orderLists.length);
+
                },function(errormessage){
                    //alert("失败"+ +errormessage);
                })
@@ -352,33 +355,35 @@
 
          //跳页事件
           btnClick: function(data){//页码点击事件
+              var that=this;
               if(data != this.cur){
                   this.cur = data
-
-
               }
+              that.pageClick();
           },
 
           //翻页事件
           pageClick: function(){
-
-              console.log('现在在'+this.cur+'页');
+              that=this;
+              alert("当前页："+that.cur)
           }
-
-
-
-
       },
 
 //分页数据监控
       watch: {
-          cur: function(oldValue , newValue){
-              console.log(arguments);
-          }
+          cur: function(newValue , oldValue){
+//
+//              this.list=[];
+//              this.beg = (this.amount * (this.cur - 1));
+//              this.end = this.beg + this.amount;
+//              if (this.end > (this.newList.length)) {
+//                  this.end = this.newList.length;
+//              }
+//              for(var i=this.beg;i<this.end;i++){
+//                  this.list.push(this.newList.get(i))
+//              }
+        }
       },
-
-
-
 
 //
       beforeCreate:function(){
@@ -389,15 +394,15 @@
 
           newList: function () {
               var that = this;
+              that.cur = 1;
               return that.orderLists.filter(function (item) {
                   return item.bookname.toLowerCase().indexOf(that.Search.toLowerCase()) !== -1;
               })
-          }
-          ,
+          },
 
           newList: function () {
               var that = this;
-              //alert(that.value+"agagg");
+              that.cur = 1;
               return that.orderLists.filter(function (item) {
                   if (that.value == "") {
                       //return true;
@@ -411,7 +416,28 @@
               })
 
           },
+
+          all: function () {
+              var _this = this;
+              //得到总的页数
+              return Math.ceil(_this.newList.length / _this.amount);
+
+          },
+
+//          list: function () {
+//
+//              this.beg = (this.amount * (this.cur - 1));
+//              this.end = this.beg + this.amount;
+//              if (this.end > (this.newList.length)) {
+//                  this.end = this.newList.length;
+//              }
+//
+//
+//              return this.newList;
+//          },
+
           indexs: function () {
+
               var left = 1;
               var right = this.all;
               var ar = [];
@@ -436,7 +462,6 @@
               }
               return ar
           }
-
       }
 
   });

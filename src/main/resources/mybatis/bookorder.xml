@@ -115,10 +115,10 @@
     <!--插入一条申请单-->
     <insert id="insertOrder"   parameterType="com.po.RequisitionOrder">
        INSERT INTO bookorder
-	       ( orderNum, bookName, edition, isbn, author, VERSION, press, unitprice,
-	          faculty, profession, SESSION, semester, campus, course, responsible, quantity, state)
+	       (orderNum, bookName, edition, isbn, author, VERSION, press, unitprice,
+	          faculty, profession, session, semester, campus, course, responsible, quantity, state)
 	   VALUES  (#{orderNum},#{bookname},#{edition},#{isbn},#{author},#{version},#{press},#{unitprice},
-	            #{faculty},#{profession},#{session},#{semester},#{campus},#{course},#{responsible},#{quantity},#{state},);
+	            #{faculty},#{profession},#{session},#{semester},#{campus},#{course},#{responsible},#{quantity},#{state});
     </insert>
 
 

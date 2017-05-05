@@ -105,11 +105,14 @@
                             <td align="center">{{item.bookname}}</td>
                             <td align="center"><button type="button" class="btn btn-primary btn-link"
 
-                                                       @click="toView(item)">查看</button></td>
+                                                       @click="toView(item)">详情</button></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
+
+
             </div>
         </div>
     </div>
@@ -212,7 +215,9 @@
             idArray:[],
             index:[],
             checkAll:false,
-            order:''
+            order:'',
+
+
         },
 
         mounted: function (){
@@ -332,6 +337,17 @@
                 });
             }
         },
+
+
+
+        //分页数据监控
+        watch: {
+            cur: function(oldValue , newValue){
+                console.log(arguments);
+            }
+        },
+
+
 //
         beforeCreate:function(){
 
@@ -362,6 +378,7 @@
 
                 })
             }
+
         }
     });
 </script>
