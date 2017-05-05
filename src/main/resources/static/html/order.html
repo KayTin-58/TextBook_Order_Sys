@@ -423,21 +423,24 @@
               return Math.ceil(_this.newList.length / _this.amount);
 
           },
-
-//          list: function () {
 //
-//              this.beg = (this.amount * (this.cur - 1));
-//              this.end = this.beg + this.amount;
-//              if (this.end > (this.newList.length)) {
-//                  this.end = this.newList.length;
-//              }
+//          a: function () {
 //
+//              alert("ahasjhadasdsadjaskdaskjdasdas")
 //
-//              return this.newList;
+////              this.beg = (this.amount * (this.cur - 1));
+////              this.end = this.beg + this.amount;
+////              if (this.end > (this.newList.length)) {
+////                  this.end = this.newList.length;
+////              }
+//
+//              return c;
 //          },
 
-          indexs: function () {
 
+
+          indexs: function () {
+                 alert(""+this.newList.length)
               var left = 1;
               var right = this.all;
               var ar = [];
@@ -460,6 +463,19 @@
                   ar.push(left)
                   left++
               }
+
+              this.beg = (this.amount * (this.cur - 1));
+              this.end = this.beg + this.amount;
+              if (this.end > (this.newList.length)) {
+                  this.end = this.newList.length;
+              }
+
+              this.list=[];
+              for(var i=this.beg;i<this.end;i++){
+                  this.list.push(this.newList[i])
+              }
+
+              alert(this.beg+"   "+this.end+"   "+this.list.length)
               return ar
           }
       }
