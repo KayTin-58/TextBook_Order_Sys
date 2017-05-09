@@ -133,7 +133,7 @@
                         </thead>
                         <tbody>
 
-                        <tr  v-for="(item,index) in newList">
+                        <tr  v-for="(item,index) in list">
                             <td>
                                 <input type="checkbox"   v-bind:checked="item.checked" @click="selectOne(item)">
                                 </input>
@@ -423,20 +423,6 @@
               return Math.ceil(_this.newList.length / _this.amount);
 
           },
-//
-//          a: function () {
-//
-//              alert("ahasjhadasdsadjaskdaskjdasdas")
-//
-////              this.beg = (this.amount * (this.cur - 1));
-////              this.end = this.beg + this.amount;
-////              if (this.end > (this.newList.length)) {
-////                  this.end = this.newList.length;
-////              }
-//
-//              return c;
-//          },
-
 
 
           indexs: function () {
@@ -474,8 +460,6 @@
               for(var i=this.beg;i<this.end;i++){
                   this.list.push(this.newList[i])
               }
-
-              alert(this.beg+"   "+this.end+"   "+this.list.length)
               return ar
           }
       }
